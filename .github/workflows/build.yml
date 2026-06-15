@@ -16,7 +16,6 @@ jobs:
           distribution: 'zulu'
           java-version: '17'
           
-      # قمنا بتغيير الإصدار هنا ليكون 3.10.0
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.10.0'
