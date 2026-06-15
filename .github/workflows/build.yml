@@ -18,11 +18,12 @@ jobs:
           
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.10.0'
+          flutter-version: '3.8.0'
           
       - name: Build
         run: |
           cd KOBANI
+          rm -f pubspec.lock
           flutter pub get
           flutter build apk --release
           
