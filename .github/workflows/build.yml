@@ -23,16 +23,12 @@ jobs:
       - name: Build
         run: |
           cd KOBANI
-          # تنظيف شامل للملفات التي قد تسبب تعارض
-          find . -name ".trashed*" -type f -delete
+          find . -name ".*" -not -name "." -not -name ".." -delete
+          find . -name ".trashed*" -delete
           rm -f pubspec.lock
-          
-          # إعدادات البناء
           chmod +x android/gradlew
           flutter clean
           flutter pub get
-          
-          # بناء التطبيق مع تجاهل أخطاء الأصول (Assets)
           flutter build apk --release --no-tree-shake-icons
           
       - name: Upload Artifact
