@@ -23,7 +23,7 @@ jobs:
       - name: Build
         run: |
           cd KOBANI
-          find . -name ".trashed*" -delete
+          rm -rf .trashed*
           rm -f pubspec.lock
           chmod +x android/gradlew
           flutter clean
