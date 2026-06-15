@@ -16,10 +16,10 @@ jobs:
           distribution: 'zulu'
           java-version: '17'
           
-      # هنا قمنا بتحديث الإصدار ليتوافق مع متطلبات مشروعك
+      # قمنا بتغيير الإصدار هنا ليكون 3.10.0
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.22.0'
+          flutter-version: '3.10.0'
           
       - name: Build
         run: |
