@@ -7,12 +7,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       
-      - name: Unzip and Explore
-        run: |
-          unzip -o flutter2.zip -d extracted_project
-          echo "--- محتويات المجلد المكتشفة ---"
-          find extracted_project -maxdepth 3
-          
+      - name: Unzip Project
+        run: unzip -o flutter2.zip
+      
       - uses: actions/setup-java@v3
         with:
           distribution: 'zulu'
@@ -22,17 +19,15 @@ jobs:
         with:
           flutter-version: '3.19.0'
           
-      - name: Build App
+      - name: Build
         run: |
-          # العثور على المجلد الذي يحتوي على ملف pubspec.yaml
-          PROJECT_DIR=$(find extracted_project -name "pubspec.yaml" -exec dirname {} \;)
-          echo "تم العثور على المشروع في: $PROJECT_DIR"
-          cd "$PROJECT_DIR"
+          # الانتقال للمجلد الصحيح داخل الملف المضغوط
+          cd KOBANI
           flutter pub get
           flutter build apk --release
           
-      - name: Upload APK
+      - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: KOBANI_App
-          path: extracted_project/**/build/app/outputs/flutter-apk/app-release.apk
+          name: KOBANI
+          path: KOBANI/build/app/outputs/flutter-apk/app-release.apk
