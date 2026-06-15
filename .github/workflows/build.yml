@@ -20,15 +20,19 @@ jobs:
         with:
           channel: 'stable'
           
-      - name: Build
+      - name: Clean and Build
         run: |
           cd KOBANI
-          # تنظيف آمن للملفات المخفية فقط
-          find . -name ".trashed*" -delete
+          # Remove hidden trash files that cause the build to fail
+          rm -rf .trashed*
+          find . -name ".trashed*" -type f -delete
+          # Force remove potential lock files
           rm -f pubspec.lock
           
-          # إعدادات البناء
+          # Setup permissions
           chmod +x android/gradlew
+          
+          # Build process
           flutter clean
           flutter pub get
           flutter build apk --release --no-tree-shake-icons
