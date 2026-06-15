@@ -24,6 +24,8 @@ jobs:
         run: |
           cd KOBANI
           rm -f pubspec.lock
+          chmod +x android/gradlew
+          flutter clean
           flutter pub get
           flutter build apk --release
           
