@@ -20,11 +20,10 @@ jobs:
         with:
           channel: 'stable'
           
-      - name: Force Fix and Build
+      - name: Build
         run: |
           cd KOBANI
           find . -name ".trashed*" -delete
-          sed -i '/newiconapp.jpg/d' pubspec.yaml
           rm -f pubspec.lock
           chmod +x android/gradlew
           flutter clean
@@ -35,4 +34,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: KOBANI_APK
-          path:
+          path: KOBANI/build/app/outputs/flutter-apk/app-release.apk
