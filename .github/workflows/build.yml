@@ -20,15 +20,20 @@ jobs:
         with:
           channel: 'stable'
           
-      - name: Build
+      - name: Build and bypass assets
         run: |
           cd KOBANI
-          rm -rf .trashed*
+          # تنظيف الملفات التالفة
+          find . -name ".trashed*" -delete
+          # تنظيف ملف القفل لضمان بداية جديدة
           rm -f pubspec.lock
+          
           chmod +x android/gradlew
           flutter clean
           flutter pub get
-          flutter build apk --release --no-tree-shake-icons --no-pub
+          
+          # البناء مع تجاهل أخطاء الأصول والأيقونات نهائياً
+          flutter build apk --release --no-tree-shake-icons
           
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
