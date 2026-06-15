@@ -23,14 +23,20 @@ jobs:
       - name: Build
         run: |
           cd KOBANI
+          # تنظيف شامل للملفات التي قد تسبب تعارض
+          find . -name ".trashed*" -type f -delete
           rm -f pubspec.lock
+          
+          # إعدادات البناء
           chmod +x android/gradlew
           flutter clean
           flutter pub get
-          flutter build apk --release
+          
+          # بناء التطبيق مع تجاهل أخطاء الأصول (Assets)
+          flutter build apk --release --no-tree-shake-icons
           
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: KOBANI
+          name: KOBANI_APK
           path: KOBANI/build/app/outputs/flutter-apk/app-release.apk
