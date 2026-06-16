@@ -8,9 +8,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       
-      - name: Unzip and Setup
+      - name: Verify file and Unzip
         run: |
-          unzip -o flutter2.zip
+          ls -F
+          if [ -f "flutter2_modified.zip" ]; then
+            unzip -o flutter2_modified.zip
+          else
+            echo "Error: flutter2_modified.zip not found!"
+            exit 1
+          fi
           cd $(find . -maxdepth 2 -name "pubspec.yaml" -printf "%h" | head -n 1)
           echo "PROJECT_PATH=$PWD" >> $GITHUB_ENV
       
